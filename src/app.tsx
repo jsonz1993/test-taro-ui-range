@@ -11,14 +11,6 @@ import './app.scss'
 
 class App extends Component {
 
-  componentDidMount () {}
-
-  componentDidShow () {}
-
-  componentDidHide () {}
-
-  componentDidCatchError () {}
-
   /**
    * 指定config的类型声明为: Taro.Config
    *
@@ -28,7 +20,8 @@ class App extends Component {
    */
   config: Config = {
     pages: [
-      'pages/index/index'
+      'pages/index/index',
+      'pages/hooks/index'
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -40,7 +33,7 @@ class App extends Component {
 
   // 在 App 类中的 render() 函数没有实际作用
   // 请勿修改此函数
-  render () {
+  render() {
     return (
       <Index />
     )

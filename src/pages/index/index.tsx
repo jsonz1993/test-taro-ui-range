@@ -1,34 +1,38 @@
 import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
+import { AtRange } from 'taro-ui'
 import './index.scss'
 
-export default class Index extends Component {
+interface IndexPageState {
+  rangeValue: [number, number]
+}
 
-  componentWillMount () { }
-
-  componentDidMount () { }
-
-  componentWillUnmount () { }
-
-  componentDidShow () { }
-
-  componentDidHide () { }
-
-  /**
-   * 指定config的类型声明为: Taro.Config
-   *
-   * 由于 typescript 对于 object 类型推导只能推出 Key 的基本类型
-   * 对于像 navigationBarTextStyle: 'black' 这样的推导出的类型是 string
-   * 提示和声明 navigationBarTextStyle: 'black' | 'white' 类型冲突, 需要显示声明类型
-   */
+export default class Index extends Component<{}, IndexPageState> {
   config: Config = {
-    navigationBarTitleText: '首页'
+    navigationBarTitleText: 'AtRange Class Component'
   }
 
-  render () {
+  constructor() {
+    super()
+    this.state = {
+      rangeValue: [0, 10]
+    }
+  }
+
+  handleChange(value: [number, number]) {
+    this.setState({
+      rangeValue: value
+    })
+    // console.log(`Range value: ${value[0]} - ${value[1]}`)
+  }
+
+  render() {
+    const { rangeValue } = this.state;
     return (
       <View className='index'>
-        <Text>Hello world!</Text>
+        <Text>AtRange Class Component</Text>
+        <AtRange min={0} max={100} value={rangeValue} onChange={this.handleChange.bind(this)} />
+        <Text>Range value: {`${rangeValue[0]} - ${rangeValue[1]}`}</Text>
       </View>
     )
   }
