@@ -5,6 +5,8 @@ import { AtRange } from 'taro-ui'
 const Index: Taro.FC = () => {
   const [rangeValue, setRangeValue] = useState<[number, number]>([0, 10]);
 
+  setTimeout(() => setRangeValue([20, 68]), 3000)
+
   const handleChange = (value: [number, number]) => {
     setRangeValue(value)
     // console.log(`Range value: ${value[0]} - ${value[1]}`)
