@@ -4,7 +4,7 @@ import { AtRange } from 'taro-ui'
 import './index.scss'
 
 interface IndexPageState {
-  rangeValue: [number, number]
+  active: boolean
 }
 
 export default class Index extends Component<{}, IndexPageState> {
@@ -12,7 +12,7 @@ export default class Index extends Component<{}, IndexPageState> {
   constructor() {
     super()
     this.state = {
-      rangeValue: [0, 10]
+      active: false,
     }
   }
 
@@ -20,28 +20,27 @@ export default class Index extends Component<{}, IndexPageState> {
     navigationBarTitleText: 'AtRange Class Component'
   }
 
-  handleChange(value: [number, number]) {
-    this.setState({
-      rangeValue: value
-    })
-    // console.log(`Range value: ${value[0]} - ${value[1]}`)
-  }
-
-  handleChangeValue() {
-    this.setState({
-      rangeValue: [0,100]
-    })
+  handleToggleActive() {
+    this.setState(prevState => ({
+      active: !prevState.active
+    }))
   }
 
   render() {
-    const { rangeValue } = this.state;
+    const { active } = this.state;
     return (
       <View className='index'>
-        <Text>AtRange Class Component</Text>
-        <AtRange min={0} max={100} value={rangeValue} onChange={this.handleChange.bind(this)} />
-        <Text>Range value: {`${rangeValue[0]} - ${rangeValue[1]}`}</Text>
-        <Text>先不要改变RangeValue，直接点按钮改变，就会重现</Text>
-        <Button onClick={this.handleChangeValue.bind(this)}>Click</Button>
+        <Text>第一条Range失效，原因是目前taro-ui AtRange只在CMD会计算stype(left,width)</Text>
+        <View className={active? 'show': 'hide'}>
+        <View className='br' />
+          <AtRange />
+          <View className='br' />
+          {
+            active && <AtRange />
+          }
+          <View className='br' />
+        </View>
+        <Button onClick={this.handleToggleActive.bind(this)}>Toggle</Button>
       </View>
     )
   }
